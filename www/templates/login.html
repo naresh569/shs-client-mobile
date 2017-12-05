@@ -1,0 +1,22 @@
+<!-- login-->
+<ion-view class="login" view-title="{{ title }}" hide-back-button="true">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear ion-android-settings" ng-click="openSettings()"></button>
+  </ion-nav-buttons>
+  <!-- <ion-nav-bar></ion-nav-bar> -->
+  <ion-content>
+    <div class="logo">
+        <img src="img/house64.png" alt="">
+    </div>
+    <h1>{{ title }}</h1>
+    <form ng-submit="login()">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input id="pin" autofocus type="tel" pattern="[0-9]*" placeholder="ENTER PIN" maxlength="6" style="-webkit-text-security:disc;" ng-model="loginDetails.userPin"  ng-change="simplfyPin()">
+        </label>
+        <button class="button button-block button-positive" type="submit" >LOGIN </button>
+        <h5 class="assertive" ng-if="error">&nbsp;<i class="ion ion-arrow-right-b"></i> {{ error }}</h5>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

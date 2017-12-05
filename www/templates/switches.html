@@ -1,0 +1,36 @@
+<ion-view view-title="ALL SWITCHES" class="switches">
+  <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <!--<ion-list>
+      <ion-item class="item-toggle item-icon-left item-extended"  >
+        <i class="icon ion-earth"></i>
+        <h2>{{ switch.title }}</h2>
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" data-ng-checked="switch.status == '5'" data-ng-false="switch.status != '5'" >
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+    </ion-list>-->
+    <ion-list>
+      <ion-item class="item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches">
+        <a href="#/app/switches/{{ switch.sid }}">
+          <i ng-if="switch.type === '1'" class="icon ion-lightbulb"></i>
+          <i ng-if="switch.type === '2'" class="icon ion-nuclear"></i>
+          <i ng-if="switch.type === '3'" class="icon ion-outlet"></i>
+          <h2>{{ switch.title }}</h2>
+        </a>
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

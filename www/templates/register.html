@@ -1,0 +1,29 @@
+<ion-view class="register" view-title="{{ title }}" hide-back-button="true">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear ion-android-settings" ng-click="openSettings()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="logo">
+        <img src="img/house64.png" alt="">
+    </div>
+    <h1>{{ title }}</h1>
+    <form ng-submit="register()">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input type="text" ng-model="nwUser.name" ng-change="simplifyName()" placeholder="Display Name">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="text" ng-model="nwUser.username" ng-change="simplifyUsername()">
+        </label>
+        <label id="pin" class="item item-input">
+          <span class="input-label">6 Digit Pin</span>
+          <input type="tel" maxlength="6" ng-model="nwUser.pin" pattern="\d*" style="-webkit-text-security:disc;" ng-change="simplfyPin()">
+        </label>
+        <button class="button button-block button-positive" type="submit">REGISTER</button>
+        <h5 class="assertive" ng-if="error">&nbsp;<i class="ion ion-arrow-right-b"></i> {{ error }}</h5>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,31 @@
+<!--modal-change-pin-->
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">CHANGE PIN</h1>
+    <div class="buttons">
+      <button class="button button-clear close-modal" ng-click="modalChangePin.hide()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="changePin()">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <!--<span class="input-label">Old Pin</span>-->
+          <input type="number" ng-model="changePinDetails.oPin" placeholder="Current PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;">
+        </label>
+        <label class="item item-input">
+          <!--<span class="input-label">New Pin</span>-->
+          <input type="number" ng-model="changePinDetails.nPin" placeholder="New 6 Digit PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;">
+        </label>
+        <label class="item item-input">
+          <!--<span class="input-label">Retype Pin</span>-->
+          <input type="number" ng-model="changePinDetails.rPin" placeholder="Retype 6 Digit PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;">
+        </label>
+        <!--<label class="item">-->
+        <button class="button button-block button-positive" type="submit">Change Pin</button>
+        <h5 class="assertive" ng-if="error">&nbsp;<i class="ion ion-arrow-right-b"></i> {{ error }}</h5>
+        <!--</label>-->
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,143 @@
+.item-select {
+    padding: 16px;
+}
+
+.has-header {
+    top: 41px;
+}
+
+#add-user {
+    font-size: 16px;
+    border: 0;
+}
+
+.popup-body {
+    text-align: center;
+}
+
+
+/* Common Styles For All Pages */
+.close-modal {
+    color: #000 !important;
+}
+.popup textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+    padding-left: 10px;
+}
+.bar .title { /* For fixing the title in the header-bar to vertical-center */
+    line-height: 53px !important;
+}
+
+/* Register & Login */
+.register .logo,
+.login .logo {
+    padding-top: 55px;
+    text-align: center;
+}
+.register .logo img,
+.login .logo img {
+    margin-left: 15px;
+}
+.register h1,
+.login h1 {
+    /* color: #886aea; */
+    text-align: center;
+    margin-top: 0;
+    font-size: 26px;
+}
+.register .list,
+.login .list {
+    background: transparent;
+    width: 85%;
+    margin: 20px auto;
+}
+.register .input-label,
+.login .input-label {
+    /* color: #886aea; */
+}
+.register .item,
+.login .item {
+    /* border-color: #886aea; */
+}
+.register #pin,
+.login #pin {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.register .bar-header,
+.login .bar-header{
+    border: 0;
+    background: transparent;
+}
+
+/* Login */
+.login .item {
+    padding: 6px 0 5px 0 !important;
+}
+.login #pin {
+    padding: 0;
+    text-align: center;
+}
+
+/* Dashboard */
+.dashboard .user {
+    padding-top: 40px;
+}
+.dashboard .user .icon {
+    top: 8px;
+    font-size: 50px;
+}
+.dashboard .user p {
+    font-size: 13px;
+}
+
+#username.item.active,
+#username.item.activated,
+#username.item-complex.active .item-content,
+#username.item-complex.activated .item-content,
+#username.item .item-content.active,
+#username.item .item-content.activated {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+/* Blocks */
+.switches .item-toggle,
+.block .item-toggle,
+.blocks .item-toggle {
+    pointer-events: auto;
+    padding: 0;
+    padding-left: 40px;
+}
+
+.switches .item a,
+.block .item a,
+.blocks .item a{
+    padding: 16px;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    color: #000;
+}
+ 
+/*
+* Below badge style is for aligning the badge
+* to left side. Kept for reference
+*/
+/*
+.blocks .item .badge {
+    right: auto;
+    left: 20px;
+}
+*/
+
+.item-icon-left {
+    padding-left: 54px;
+}
+
+
+/*
+*/
+#desc p{
+    text-overflow: unset;
+    white-space: normal;
+}

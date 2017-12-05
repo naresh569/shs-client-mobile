@@ -1,0 +1,26 @@
+<ion-view view-title="DASHBOARD" class="dashboard">
+  <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list ng-if="user">
+      <ion-item class="item-icon-left user">
+        <i class="icon ion-android-contact"></i>
+        <h2>{{ user.name }}</h2>
+        <p>{{ user.username }}</p>
+      </ion-item>
+      <ion-item ng-if="isUserAdmin" class="item-icon-left" href="#/app/switches">
+        <i class="icon ion-android-options"></i>
+        All Switches
+        <span class="badge badge-balanced">{{ overview.switches.sActive }}</span>
+      </ion-item>
+      
+      <ion-item class="item-icon-left" href="#/app/blocks">
+        <i class="icon ion-android-home"></i>
+        Blocks
+        <span ng-if="!isUserAdmin" class="badge badge-balanced">{{ overview.switches.sActive }}</span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

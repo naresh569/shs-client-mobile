@@ -1,0 +1,32 @@
+<ion-view view-title="BLOCK" class="block">
+  <ion-nav-title>{{ block.label | uppercase }}</ion-nav-title>
+  <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list>
+      <li class="item item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches track by $index" >
+        <a href="#/app/switches/{{ switch.sid }}">
+          <i ng-if="switch.type === '1'" class="icon ion-lightbulb"></i>
+          <i ng-if="switch.type === '2'" class="icon ion-nuclear"></i>
+          <i ng-if="switch.type === '3'" class="icon ion-outlet"></i>
+          <h2>{{ switch.title }}</h2>
+          <!--<p>{{ switch.subtitle }}</p>-->
+        </a>
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+    </ion-list>
+  </ion-content>  
+</ion-view>
+
+<!--
+NOTES
+* styles need to be taken care.
+
+-->
