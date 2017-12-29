@@ -6,7 +6,7 @@
       on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list>
-      <li class="item item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches track by $index" >
+      <li class="item item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches track by $index" ng-if="switch.type !== '3' || isUserAdmin">
         <a href="#/app/switches/{{ switch.sid }}">
           <i ng-if="switch.type === '1'" class="icon ion-lightbulb"></i>
           <i ng-if="switch.type === '2'" class="icon ion-nuclear"></i>

@@ -203,7 +203,7 @@ angular.module('starter.controllers', ['starter.services'])
 
     // Validation for Username
     if ($scope.nwUser.username.length < 3 ||
-      $scope.nwUser.username.length > 10   ||
+      $scope.nwUser.username.length > 20   ||
       /^[a-z]{1,}[0-9]{0,}$/.test($scope.nwUser.username) === false) {
       console.log(" > Invalid Username..");
       $scope.error = "Invalid Username..";
@@ -587,7 +587,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('BlockCtrl', function($scope, $stateParams, SERVER, $ionicLoading, $ionicPopup, CONFIG, $cordovaNetwork) {
+.controller('BlockCtrl', function($scope, $stateParams, SERVER, $ionicLoading, $ionicPopup, CONFIG, $cordovaNetwork, USER) {
 
   $scope.block = null;
   $scope.switches = [];
@@ -597,7 +597,7 @@ angular.module('starter.controllers', ['starter.services'])
 
   function init() {
     $ionicLoading.show();
-
+    $scope.isUserAdmin = USER.isAdmin();
     // Check for network connectivity
     if ($cordovaNetwork.isOffline()) {
       $ionicLoading.hide();

@@ -80,7 +80,7 @@ angular.module('starter.services', [])
 .factory("SERVER", function ($http, CONFIG, SESSION) {
     
     // if (SESSION.isUserLoggedIn()) {
-    //     $http.defaults.headers.common.Authorization = "Token " + SESSION.getToken();
+    //     $http.defaults.headers.common.Authorization = "" + SESSION.getToken();
     // }
 
     var server = CONFIG.server;
@@ -96,63 +96,63 @@ angular.module('starter.services', [])
         getSessionDetails: function () {
             return $http.get(server.url + "/session", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         getOverview: function () {
             return $http.get(server.url + "/overview", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         getAllBlocks: function () {
             return $http.get(server.url + "/blocks", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         getAllSwitches: function () {
             return $http.get(server.url + "/switches", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         getBlock: function (block) {
             return $http.get(server.url + "/blocks/" + block.bid, {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         getSwitches : function (block) {
             return $http.get(server.url + "/blocks/" + block.bid + "/switches", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         getSwitch: function (sw) {
             return $http.get(server.url + "/switches/" + sw.sid, {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         changeSwitchDetails: function (sid, data) {
             return $http.put(server.url + "/switches/" + sid, data, {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
         changeSwitchStatus: function (sid, data) {
             return $http.put(server.url + "/switches/" + sid, data, {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
@@ -160,7 +160,7 @@ angular.module('starter.services', [])
         getAllUsers: function () {
             return $http.get(server.url  +"/users", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },
@@ -168,21 +168,21 @@ angular.module('starter.services', [])
             if (data && data.id) {
                 return $http.get(server.url + "/users/" + data.id, {
                     headers: {
-                        "Authorization": "Token" + SESSION.getToken()
+                        "Authorization": "" + SESSION.getToken()
                     }
                 });
             }
 
             return $http.get(server.url + "/user", {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });            
         },
         changeUserDetails: function (uid, data) {
             return $http.put(server.url + "/users/" + uid, data, {
                 headers: {
-                    "Authorization": "Token" + SESSION.getToken()
+                    "Authorization": "" + SESSION.getToken()
                 }
             });
         },

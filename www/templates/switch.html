@@ -20,7 +20,7 @@
                 </label>
             </ion-item>
 
-            <ion-item class="range range-positive">
+            <ion-item class="range range-positive" ng-if="switch.type === '2' || isUserAdmin">
                 <i class="icon ion-ios-sunny-outline"></i>
                 <input type="range" name="volume" min="0" max="5" value="1" data-ng-model="switch.status" data-ng-change="changeLevel($event, switch.status, '{{ switch.status }}')">
                 <i class="icon ion-ios-sunny"></i>
