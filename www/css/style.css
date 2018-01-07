@@ -77,6 +77,9 @@
     padding: 0;
     text-align: center;
 }
+.login .item.item-input{
+    border-radius: 2px;
+}
 
 /* Dashboard */
 .dashboard .user {
