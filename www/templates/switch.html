@@ -13,7 +13,7 @@
                 <h2>{{ switch.title }}</h2>
                 <!--<p>{{ switch.subtitle }}</p>-->
                 <label class="toggle toggle-balanced">
-                    <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)">
+                    <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)" ng-disabled="switch.lock">
                     <div class="track">
                     <div class="handle"></div>
                     </div>
@@ -22,7 +22,7 @@
 
             <ion-item class="range range-positive" ng-if="switch.type === '2' || isUserAdmin">
                 <i class="icon ion-ios-sunny-outline"></i>
-                <input type="range" name="volume" min="0" max="5" value="1" data-ng-model="switch.status" data-ng-change="changeLevel($event, switch.status, '{{ switch.status }}')">
+                <input type="range" name="volume" min="0" max="5" value="1" data-ng-model="switch.status" data-ng-change="changeLevel($event, switch.status, '{{ switch.status }}')" ng-disabled="switch.lock">
                 <i class="icon ion-ios-sunny"></i>
             </ion-item>
 

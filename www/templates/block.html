@@ -15,7 +15,7 @@
           <!--<p>{{ switch.subtitle }}</p>-->
         </a>
         <label class="toggle toggle-balanced">
-          <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)">
+          <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)" ng-disabled="switch.lock">
           <div class="track">
             <div class="handle"></div>
           </div>
