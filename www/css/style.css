@@ -3,7 +3,7 @@
 }
 
 .has-header {
-    top: 41px;
+    top: 42px;
 }
 
 #add-user {
@@ -14,7 +14,6 @@
 .popup-body {
     text-align: center;
 }
-
 
 /* Common Styles For All Pages */
 .close-modal {
@@ -137,9 +136,6 @@
     padding-left: 54px;
 }
 
-
-/*
-*/
 #desc p{
     text-overflow: unset;
     white-space: normal;
