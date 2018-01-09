@@ -490,10 +490,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('DashboardCtrl', function ($scope, SESSION, SERVER, $ionicLoading, $cordovaNetwork, CONFIG, $ionicPopup, USER, $ionicHistory) {
-
-  // $ionicHistory.clearHistory();
-
+.controller('DashboardCtrl', function ($scope, SESSION, SERVER, $ionicLoading, $cordovaNetwork, CONFIG, $ionicPopup, USER) {
   $scope.user = null;
   $scope.overview = null;
   $scope.isUserAdmin = false;
