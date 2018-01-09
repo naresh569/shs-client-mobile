@@ -17,7 +17,15 @@
       </ion-item>
     </ion-list>-->
     <ion-list>
-      <ion-item class="item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Filter by status
+        </div>
+        <select ng-model="filter" ng-options="each.value as each.displayName for each in filters">
+        </select>
+      </label>
+      <!-- <ion-scroll direction="y" overflow-scroll="false"> -->
+      <ion-item class="item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches | FilterByStatus:filter">
         <a href="#/app/switches/{{ switch.sid }}">
           <i ng-if="switch.type === '1'" class="icon ion-lightbulb"></i>
           <i ng-if="switch.type === '2'" class="icon ion-nuclear"></i>
@@ -31,6 +39,7 @@
           </div>
         </label>
       </ion-item>
+      <!-- </ion-scroll> -->
     </ion-list>
   </ion-content>
 </ion-view>

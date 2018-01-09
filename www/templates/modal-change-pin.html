@@ -11,15 +11,15 @@
       <div class="list list-inset">
         <label class="item item-input">
           <!--<span class="input-label">Old Pin</span>-->
-          <input type="number" ng-model="changePinDetails.oPin" placeholder="Current PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;">
+          <input type="tel" ng-model="changePinDetails.oPin" placeholder="Current PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;" maxlength="6" ng-change="simplfyPin('oPin')">
         </label>
         <label class="item item-input">
           <!--<span class="input-label">New Pin</span>-->
-          <input type="number" ng-model="changePinDetails.nPin" placeholder="New 6 Digit PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;">
+          <input type="tel" ng-model="changePinDetails.nPin" placeholder="New 6 Digit PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;" maxlength="6" ng-change="simplfyPin('nPin')">
         </label>
         <label class="item item-input">
           <!--<span class="input-label">Retype Pin</span>-->
-          <input type="number" ng-model="changePinDetails.rPin" placeholder="Retype 6 Digit PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;">
+          <input type="tel" ng-model="changePinDetails.rPin" placeholder="Retype 6 Digit PIN" pattern="[0-9]*" inputmode="numeric" style="-webkit-text-security:disc;" maxlength="6" ng-change="simplfyPin('rPin')">
         </label>
         <!--<label class="item">-->
         <button class="button button-block button-positive" type="submit">Change Pin</button>

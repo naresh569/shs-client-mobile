@@ -1,6 +1,22 @@
 
 angular.module('starter.controllers', ['starter.services'])
 
+.filter('FilterByStatus', function() {
+  return function(switches, filter) {
+    return switches.filter(function (v, i, a) {
+      if (filter === "inactive") {
+        return v.status === "0"
+      }
+      
+      if (filter === "active") {
+        return v.status !== "0";
+      }
+
+      return true;
+    });
+  };
+})
+
 .controller('AppCtrl', function($scope, SESSION, $rootScope, USER) {
 
   $rootScope.$watch(function () {
@@ -474,7 +490,10 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('DashboardCtrl', function ($scope, SESSION, SERVER, $ionicLoading, $cordovaNetwork, CONFIG, $ionicPopup, USER) {
+.controller('DashboardCtrl', function ($scope, SESSION, SERVER, $ionicLoading, $cordovaNetwork, CONFIG, $ionicPopup, USER, $ionicHistory) {
+
+  // $ionicHistory.clearHistory();
+
   $scope.user = null;
   $scope.overview = null;
   $scope.isUserAdmin = false;
@@ -717,7 +736,21 @@ angular.module('starter.controllers', ['starter.services'])
 .controller("SwitchesCtrl", function($scope, SERVER, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG){
 
   $scope.switches = [];
-  $scope.filter = null;
+  $scope.filters = [
+    {
+      value: "all",
+      displayName: "All"
+    },
+    {
+      value: "active",
+      displayName: "Active"
+    },
+    {
+      value: "inactive",
+      displayName: "Inactive"
+    }
+  ]
+  $scope.filter = "all";
 
   function init() {
     $ionicLoading.show();
@@ -1276,6 +1309,8 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.changePin = function () {
     timer && $timeout.cancel(timer);
     console.log(" > Changed Pin Details:", $scope.changePinDetails);
+
+    // Validation
     if (!$scope.changePinDetails.oPin ||
         !$scope.changePinDetails.nPin ||
         !$scope.changePinDetails.rPin) {
@@ -1285,21 +1320,31 @@ angular.module('starter.controllers', ['starter.services'])
       }, CONFIG.timeout.error);
       return;
     }
-
-    var userCurPin = "" + $scope.changePinDetails.oPin;
-    while (userCurPin.length < 6) {
-      userCurPin = "0" + userCurPin;
-    }
-    var userNewPin = "" + $scope.changePinDetails.nPin;
-    while (userNewPin.length < 6) {
-      userNewPin = "0" + userNewPin;
-    }
-    var userRtpPin = "" + $scope.changePinDetails.nPin;
-    while (userRtpPin.length < 6) {
-      userRtpPin = "0" + userRtpPin;
+    
+    if ($scope.changePinDetails.oPin.length < 6 ||
+        $scope.changePinDetails.nPin.length < 6 ||
+        $scope.changePinDetails.rPin.length < 6) {
+      $scope.error = "PIN should be of length 6..";
+      timer = $timeout(function () {
+        $scope.error = "";
+      }, CONFIG.timeout.error); // Display the error for 3 seconds
+      return;
     }
 
-    if (userNewPin !== userRtpPin) {
+    // var userCurPin = "" + $scope.changePinDetails.oPin;
+    // while (userCurPin.length < 6) {
+    //   userCurPin = "0" + userCurPin;
+    // }
+    // var userNewPin = "" + $scope.changePinDetails.nPin;
+    // while (userNewPin.length < 6) {
+    //   userNewPin = "0" + userNewPin;
+    // }
+    // var userRtpPin = "" + $scope.changePinDetails.nPin;
+    // while (userRtpPin.length < 6) {
+    //   userRtpPin = "0" + userRtpPin;
+    // }
+
+    if ($scope.changePinDetails.nPin !== $scope.changePinDetails.rPin) {
       console.log(' > Retyped PIN Mismatch!');
       // $scope.changePinDetails.rPin = "";
       $scope.error = "Retyped PIN Mismatch!";
@@ -1325,8 +1370,8 @@ angular.module('starter.controllers', ['starter.services'])
 
     var errorMsg = "Operation Failed!";
     SERVER.changeUserDetails($scope.user._id, {
-      newPin: userNewPin,
-      curPin: userCurPin
+      newPin: $scope.changePinDetails.nPin,
+      curPin: $scope.changePinDetails.oPin
     }).then(function (res) {
       if (res.data && res.data.success) {
         $ionicLoading.hide();
@@ -1360,6 +1405,12 @@ angular.module('starter.controllers', ['starter.services'])
         template: errorMsg
       });
     });
+  };
+
+  $scope.simplfyPin = function (pinType) {
+    if (!$scope.changePinDetails[pinType]) {
+      $scope.changePinDetails[pinType] = "";
+    }
   };
 
   $scope.changeAccessLevel = function (newVal, oldVal) { // newVal and oldVal are Strings and convert to int before using
