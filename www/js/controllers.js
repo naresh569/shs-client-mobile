@@ -1,21 +1,5 @@
 
-angular.module('starter.controllers', ['starter.services'])
-
-.filter('FilterByStatus', function() {
-  return function(switches, filter) {
-    return switches.filter(function (v, i, a) {
-      if (filter === "inactive") {
-        return v.status === "0"
-      }
-      
-      if (filter === "active") {
-        return v.status !== "0";
-      }
-
-      return true;
-    });
-  };
-})
+angular.module('starter.controllers', ['starter.services', 'starter.filters'])
 
 .controller('AppCtrl', function($scope, SESSION, $rootScope, USER) {
 
@@ -130,6 +114,22 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        // if (err.data.forceLogout) {
+        //   $timeout(function () {
+        //     $rootScope.$broadcast('doLogout');
+        //   }, CONFIG.timeout.delay);
+        // }
+
+      }
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",
@@ -362,6 +362,22 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        // if (err.data.forceLogout) {
+        //   $timeout(function () {
+        //     $rootScope.$broadcast('doLogout');
+        //   }, CONFIG.timeout.delay);
+        // }
+
+      }
       $ionicLoading.hide();
       $scope.loginDetails.userPin = "";
       console.log(" >> ", errorMsg);
@@ -490,7 +506,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('DashboardCtrl', function ($scope, SESSION, SERVER, $ionicLoading, $cordovaNetwork, CONFIG, $ionicPopup, USER) {
+.controller('DashboardCtrl', function ($scope, SESSION, SERVER, $ionicLoading, $cordovaNetwork, CONFIG, $ionicPopup, USER, $rootScope, $timeout) {
   $scope.user = null;
   $scope.overview = null;
   $scope.isUserAdmin = false;
@@ -517,7 +533,7 @@ angular.module('starter.controllers', ['starter.services'])
     var errorMsg = "Data Unavailable..";
     SERVER.getOverview()
     .then(function (res) {
-      if (res && res.data) {
+      if (res.data) {
         $scope.overview = res.data;
         $ionicLoading.hide();
       } else {
@@ -529,13 +545,29 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",
         okType: "button-positive",
         template: errorMsg
       });
-      console.log(err);
+      console.log(" > Server error:",err);
     });
   }
   
@@ -548,7 +580,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('BlocksCtrl', function ($scope, SERVER, $state, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG) {
+.controller('BlocksCtrl', function ($scope, SERVER, $state, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG, $timeout, $rootScope) {
 
   $scope.blocks = [];
 
@@ -585,6 +617,22 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",
@@ -603,7 +651,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('BlockCtrl', function($scope, $stateParams, SERVER, $ionicLoading, $ionicPopup, CONFIG, $cordovaNetwork, USER) {
+.controller('BlockCtrl', function($scope, $stateParams, SERVER, $ionicLoading, $ionicPopup, CONFIG, $cordovaNetwork, USER, $timeout, $rootScope) {
 
   $scope.block = null;
   $scope.switches = [];
@@ -648,6 +696,23 @@ angular.module('starter.controllers', ['starter.services'])
           });
         }
       }, function (err) {
+        if (err.statusText) {
+          errorMsg = err.statusText;
+        }
+  
+        if (err.data) {
+          if (err.data.message) {
+            errorMsg = err.data.message;
+          }
+  
+          if (err.data.forceLogout) {
+            $timeout(function () {
+              $rootScope.$broadcast('doLogout');
+            }, CONFIG.timeout.delay);
+          }
+  
+        }
+
         $ionicLoading.hide();
         $ionicPopup.alert({
           title: "ERROR",
@@ -657,6 +722,22 @@ angular.module('starter.controllers', ['starter.services'])
       });
 
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",
@@ -718,6 +799,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       sw.status = (status == '5') ? '0' : '5';
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -730,7 +828,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller("SwitchesCtrl", function($scope, SERVER, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG){
+.controller("SwitchesCtrl", function($scope, SERVER, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG, $timeout, $rootScope){
 
   $scope.switches = [];
   $scope.filters = [
@@ -777,7 +875,24 @@ angular.module('starter.controllers', ['starter.services'])
           template: errorMsg
         });
       }
-    }, function (err){
+    }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",
@@ -839,6 +954,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       sw.status = (status == '5') ? '0' : '5';
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -851,7 +983,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('SwitchCtrl', function($scope, SERVER, $stateParams, $ionicPopup, $ionicLoading, $cordovaNetwork, CONFIG, SESSION, USER){
+.controller('SwitchCtrl', function($scope, SERVER, $stateParams, $ionicPopup, $ionicLoading, $cordovaNetwork, CONFIG, SESSION, USER, $timeout, $rootScope){
   $scope.switch = null;
   $scope.isUserAdmin = false;
 
@@ -889,6 +1021,23 @@ angular.module('starter.controllers', ['starter.services'])
       $scope.switch = res.data;
       $ionicLoading.hide();
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       $ionicLoading.hide();
       ionicPopup.alert({
         title: "Error",
@@ -944,6 +1093,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       sw.status = (status == '5') ? '0' : '5';
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -992,6 +1158,23 @@ angular.module('starter.controllers', ['starter.services'])
       console.log(' > RESPONSE', res);
       
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       console.log(' > ERROR', err);
       $scope.switch.status = oldVal;
       $ionicLoading.hide();
@@ -1020,7 +1203,7 @@ angular.module('starter.controllers', ['starter.services'])
     }
 
     var errorMsg = "Operation Failed..";
-    SERVER.changeSwitchDetails($scope.switch.sid, {
+    SERVER.changeSwitchLockStatus($scope.switch.sid, {
       lock: $scope.switch.lock
     }).then(function (res) {
       if (res.data && res.data.success) {
@@ -1040,6 +1223,23 @@ angular.module('starter.controllers', ['starter.services'])
       }
 
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       console.log(' > Error', err);
       $scope.switch.lock = $scope.switch.lock ? false : true;
       $ionicLoading.hide();
@@ -1053,7 +1253,7 @@ angular.module('starter.controllers', ['starter.services'])
   
 })
 
-.controller('UsersCtrl', function($scope, SERVER, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG) {
+.controller('UsersCtrl', function($scope, SERVER, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $cordovaNetwork, CONFIG, $rootScope) {
 
   $scope.users = [];
 
@@ -1086,6 +1286,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",
@@ -1156,6 +1373,23 @@ angular.module('starter.controllers', ['starter.services'])
         console.log(' > User adding failed..', res.data.message);
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       console.log(' > User adding failed..', err);
     });
     $timeout(function () {
@@ -1167,7 +1401,7 @@ angular.module('starter.controllers', ['starter.services'])
   
 })
 
-.controller('UserCtrl', function($scope, $stateParams, SERVER, $ionicModal, $timeout, $ionicPopup, $ionicLoading, CONFIG, $cordovaNetwork, SESSION, USER) {
+.controller('UserCtrl', function($scope, $stateParams, SERVER, $ionicModal, $timeout, $ionicPopup, $ionicLoading, CONFIG, $cordovaNetwork, SESSION, USER, $rootScope) {
 
   var timer;
 
@@ -1290,6 +1524,22 @@ angular.module('starter.controllers', ['starter.services'])
             });
           }
         }, function (err) {
+          if (err.statusText) {
+            errorMsg = err.statusText;
+          }
+    
+          if (err.data) {
+            if (err.data.message) {
+              errorMsg = err.data.message;
+            }
+    
+            if (err.data.forceLogout) {
+              $timeout(function () {
+                $rootScope.$broadcast('doLogout');
+              }, CONFIG.timeout.delay);
+            }
+    
+          }
   
           $scope.user.name = preName;
           $ionicLoading.hide();
@@ -1394,6 +1644,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       $scope.changePinDetails = {};
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -1446,6 +1713,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       $scope.user.accessLevel = parseInt(oldVal);
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -1492,6 +1776,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       evt.target.checked = evt.target.checked ? false : true;
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -1541,6 +1842,23 @@ angular.module('starter.controllers', ['starter.services'])
         });
       }
     }, function (err) {
+      if (err.statusText) {
+        errorMsg = err.statusText;
+      }
+
+      if (err.data) {
+        if (err.data.message) {
+          errorMsg = err.data.message;
+        }
+
+        if (err.data.forceLogout) {
+          $timeout(function () {
+            $rootScope.$broadcast('doLogout');
+          }, CONFIG.timeout.delay);
+        }
+
+      }
+
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: "ERROR",

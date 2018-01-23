@@ -83,6 +83,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
     });
 
+    $rootScope.$on('doLogout', function () {
+      SESSION.end();
+      $state.go("app.login");
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+    });
+
     // Check for network connectivity on start of app
     if ($cordovaNetwork.isOffline()) {
       $ionicPopup.alert({
