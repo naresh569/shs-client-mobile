@@ -1,7 +1,7 @@
 
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'])
 
-.run(function($ionicPlatform, $state, DEVICE, $rootScope, SESSION, $ionicPopup, $ionicHistory, $cordovaNetwork, CONFIG, USER) {
+.run(function($ionicPlatform, $state, DEVICE, $rootScope, SESSION, $ionicPopup, $ionicHistory, $cordovaNetwork, CONFIG, USER, Idle) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -15,7 +15,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
+    
     DEVICE.init()
     .then(function () {
       console.log(" > Device UUId:", DEVICE.uuid);
@@ -85,10 +85,39 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
     $rootScope.$on('doLogout', function () {
       SESSION.end();
+      $rootScope.$broadcast('LoggedOut');
       $state.go("app.login");
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
+    });
+
+    // $rootScope.$on('IdleStart', function() {
+    //   console.log(" > Idle");
+    //   $ionicPopup.alert({
+    //     title: "ERROR",
+    //     okType: "button-positive",
+    //     template: "Idle"
+    //   });
+    // });
+
+    $rootScope.$on('IdleTimeout', function () {
+      console.log(" > Timeout");
+      $ionicPopup.alert({
+        title: "SESSION TIMEOUT",
+        okType: "button-positive",
+        template: "Your session expired due to inactivity. Please, click OK to login again."
+      }).then(function () {
+        $rootScope.$broadcast('doLogout');
+      });
+    });
+
+    $rootScope.$on('LoggedIn', function () {
+      Idle.watch();
+    });
+
+    $rootScope.$on('LoggedOut', function () {
+      Idle.unwatch();
     });
 
     // Check for network connectivity on start of app
@@ -120,7 +149,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
   }, 100);
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, IdleProvider, KeepaliveProvider) {
   $ionicConfigProvider.backButton.text('').icon('ion-chevron-left').previousTitleText(false);
 
   $stateProvider
@@ -251,6 +280,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     }
   });
+
+  IdleProvider.idle(1*60);
+  IdleProvider.timeout(30);
+  KeepaliveProvider.interval(5*60);
 
   // $urlRouterProvider.otherwise('/app/register');
 });

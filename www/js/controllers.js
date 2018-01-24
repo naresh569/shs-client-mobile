@@ -237,7 +237,7 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
   }
 })
 
-.controller('LoginCtrl', function($scope, $state, $ionicHistory, DEVICE, SERVER, $ionicLoading, SESSION, $ionicPopup, $timeout, CONFIG, $ionicSideMenuDelegate, $cordovaNetwork, USER) {
+.controller('LoginCtrl', function($scope, $state, $ionicHistory, DEVICE, SERVER, $ionicLoading, SESSION, $ionicPopup, $timeout, CONFIG, $ionicSideMenuDelegate, $cordovaNetwork, USER, $rootScope) {
 
   $scope.$on('$ionicView.afterEnter', function () {
     $ionicSideMenuDelegate.canDragContent(false);
@@ -320,6 +320,7 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           .then(function () {
             console.log(" > User details has been set..");
             $state.go("app.dashboard");
+            $rootScope.$broadcast('LoggedIn');
             // $ionicHistory.clearHistory();
             $ionicHistory.nextViewOptions({
               disableBack: true
@@ -493,6 +494,7 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
       $timeout(function () {
         console.log(" > logging out..");
         SESSION.end();
+        $rootScope.$broadcast('LoggedOut');
         $state.go("app.login");
         $ionicHistory.nextViewOptions({
           disableBack: true
