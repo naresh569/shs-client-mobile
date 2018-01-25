@@ -201,6 +201,13 @@ angular.module('starter.services', [])
                 }
             });
             console.log(" > users:", users);
+        },
+        logout: function () {
+            return $http.get(server.url + "/logout", {
+                headers: {
+                    "Authorization": "" + SESSION.getToken()
+                }
+            });
         }
     };
 })

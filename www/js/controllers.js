@@ -480,31 +480,44 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
 
 })
 
-.controller('LogoutCtrl', function (SESSION, CONFIG, $state, $ionicHistory, $timeout, $ionicLoading, $ionicPopup) {
+.controller('LogoutCtrl', function (SESSION, CONFIG, $state, $ionicHistory, $timeout, $ionicLoading, $ionicPopup, $cordovaNetwork, SERVER, $rootScope) {
 
-  // Confirm whether user want to logout or not
-  $ionicPopup.confirm({
-    title: "CONFIRM",
-    okType: "button-positive",
-    template: "Do you want to logout?"
-  }).then(function (res) {
-    if (res) {
-      // Do logout
-      $ionicLoading.show();
-      $timeout(function () {
-        console.log(" > logging out..");
-        SESSION.end();
-        $rootScope.$broadcast('LoggedOut');
-        $state.go("app.login");
-        $ionicHistory.nextViewOptions({
-          disableBack: true
-        });
-        $ionicLoading.hide();
-      }, CONFIG.timeout.delay);
-    } else {
-      $ionicHistory.backView().go();
-    }
-  });
+  function init() {
+
+    // Confirm whether user want to logout or not
+    $ionicPopup.confirm({
+      title: "CONFIRM",
+      okType: "button-positive",
+      template: "Do you want to logout?"
+    }).then(function (res) {
+      if (res) {
+        // Do logout
+
+        if ($cordovaNetwork.isOnline()) {
+          // If the device is online, inform SERVER
+          // that the user is logging out
+          $ionicLoading.hide();
+          SERVER.logout();
+        }
+
+        $ionicLoading.show();
+        $timeout(function () {
+          console.log(" > logging out..");
+          SESSION.end();
+          $rootScope.$broadcast('LoggedOut');
+          $state.go("app.login");
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $ionicLoading.hide();
+        }, CONFIG.timeout.delay);
+      } else {
+        $ionicHistory.backView().go();
+      }
+    });
+  }
+  
+  init();
 
 })
 
