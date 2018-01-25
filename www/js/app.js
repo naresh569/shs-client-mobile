@@ -92,14 +92,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
       });
     });
 
-    // $rootScope.$on('IdleStart', function() {
-    //   console.log(" > Idle");
-    //   $ionicPopup.alert({
-    //     title: "ERROR",
-    //     okType: "button-positive",
-    //     template: "Idle"
-    //   });
-    // });
 
     $rootScope.$on('IdleTimeout', function () {
       console.log(" > Timeout");
