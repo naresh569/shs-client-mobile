@@ -150,7 +150,14 @@ angular.module('starter.services', [])
             });
         },
         changeSwitchStatus: function (sid, data) {
-            return $http.put(server.url + "/switches/" + sid, data, {
+            return $http.put(server.url + "/switches/" + sid + "/changeStatus", data, {
+                headers: {
+                    "Authorization": "" + SESSION.getToken()
+                }
+            });
+        },
+        changeSwitchLockStatus: function (sid, data) {
+            return $http.put(server.url + "/switches/" + sid + "/changeLockStatus", data, {
                 headers: {
                     "Authorization": "" + SESSION.getToken()
                 }
