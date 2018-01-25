@@ -95,7 +95,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
       Idle.unwatch();
     });
 
-
     $rootScope.$on('IdleTimeout', function () {
       console.log(" > Timeout");
       $ionicPopup.confirm({
@@ -110,11 +109,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
         }
       });
     });
-
-    $rootScope.$on('LoggedIn', function () {
-      Idle.watch();
-    });
-
 
     // Check for network connectivity on start of app
     if ($cordovaNetwork.isOffline()) {
