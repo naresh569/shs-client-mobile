@@ -103,12 +103,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
 
     $rootScope.$on('IdleTimeout', function () {
       console.log(" > Timeout");
-      $ionicPopup.alert({
+      $ionicPopup.confirm({
         title: "SESSION TIMEOUT",
         okType: "button-positive",
-        template: "Your session expired due to inactivity. Please, click OK to login again."
-      }).then(function () {
-        $rootScope.$broadcast('doLogout');
+        template: "Your session has expired due to inactivity. Please, click OK to relogin or cancel to exit."
+      }).then(function (res) {
+        if (res) {
+          $rootScope.$broadcast('doLogout');
+        } else {
+          ionic.Platform.exitApp();
+        }
       });
     });
 
@@ -281,8 +285,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
     }
   });
 
-  IdleProvider.idle(1*60);
-  IdleProvider.timeout(30);
+  IdleProvider.idle(10);
+  IdleProvider.timeout(20);
   KeepaliveProvider.interval(5*60);
 
   // $urlRouterProvider.otherwise('/app/register');
