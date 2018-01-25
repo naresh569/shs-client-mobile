@@ -8,7 +8,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
 
     if (window.StatusBar) {
@@ -83,13 +82,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
 
     });
 
+    $rootScope.$on('doRefresh', function () {
+      SESSION.refresh();
+    });
+
     $rootScope.$on('doLogout', function () {
       SESSION.end();
-      $rootScope.$broadcast('LoggedOut');
       $state.go("app.login");
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
+      Idle.unwatch();
     });
 
 
@@ -112,9 +115,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
       Idle.watch();
     });
 
-    $rootScope.$on('LoggedOut', function () {
-      Idle.unwatch();
-    });
 
     // Check for network connectivity on start of app
     if ($cordovaNetwork.isOffline()) {
