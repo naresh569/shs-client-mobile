@@ -503,13 +503,8 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
         $ionicLoading.show();
         $timeout(function () {
           console.log(" > logging out..");
-          SESSION.end();
-          $rootScope.$broadcast('LoggedOut');
-          $state.go("app.login");
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
           $ionicLoading.hide();
+          $rootScope.$broadcast('doLogout');
         }, CONFIG.timeout.delay);
       } else {
         $ionicHistory.backView().go();
