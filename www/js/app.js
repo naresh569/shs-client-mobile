@@ -96,7 +96,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
       Idle.unwatch();
     });
 
+    var modal;
+    $rootScope.$on('IdleStart', function() {
+      console.log(" > Time timeidle:", new Date());
+      modal = $ionicPopup.alert({
+        title: "SESSION TIMEOUT",
+        okType: "button-positive",
+        template: "Your session will expire in less than 30s. Please, click OK to continue."
+      });
+    });
+
+    $rootScope.$on('IdleEnd', function() {
+      modal && modal.close();
+    });
+    
     $rootScope.$on('IdleTimeout', function () {
+      modal && modal.close();
+      console.log(" > Time timeout:", new Date());
       console.log(" > Timeout");
       $ionicPopup.confirm({
         title: "SESSION TIMEOUT",
@@ -272,7 +288,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
     }
   });
 
-  /* Session timeout = 1.5 min */
+  /* Session timeout = 2.5 min */
   IdleProvider.idle(2*60);
   IdleProvider.timeout(30);
   KeepaliveProvider.interval(5*60);
