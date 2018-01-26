@@ -84,6 +84,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
 
     $rootScope.$on('doRefresh', function () {
       SESSION.refresh();
+      USER.init();
     });
 
     $rootScope.$on('doLogout', function () {
@@ -271,8 +272,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngIdle'
     }
   });
 
-  IdleProvider.idle(10);
-  IdleProvider.timeout(20);
+  /* Session timeout = 1.5 min */
+  IdleProvider.idle(2*60);
+  IdleProvider.timeout(30);
   KeepaliveProvider.interval(5*60);
 
   // $urlRouterProvider.otherwise('/app/register');
