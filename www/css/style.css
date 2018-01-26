@@ -137,3 +137,7 @@
     text-overflow: unset;
     white-space: normal;
 }
+
+.switches .item-toggle .toggle {
+    top: 18px !important;
+}

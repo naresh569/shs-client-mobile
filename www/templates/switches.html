@@ -31,6 +31,9 @@
           <i ng-if="switch.type === '2'" class="icon ion-nuclear"></i>
           <i ng-if="switch.type === '3'" class="icon ion-outlet"></i>
           <h2>{{ switch.title }}</h2>
+          <p ng-if="switch.addtInfo.block">
+            {{ switch.addtInfo.block.label }}
+          </p>
         </a>
         <label class="toggle toggle-balanced">
           <input type="checkbox" data-ng-checked="switch.status > '0'" data-ng-click="clickToggle($event, switch)" ng-disabled="switch.lock">
