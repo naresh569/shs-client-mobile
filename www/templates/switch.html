@@ -1,4 +1,4 @@
-<ion-view> <!--view-title="SWITCH"-->
+<ion-view class="switch"> <!--view-title="SWITCH"-->
     <ion-nav-title>{{ switch.title }}</ion-nav-title>
     <ion-content>
         <ion-refresher
@@ -24,6 +24,7 @@
                 <i class="icon ion-ios-sunny-outline"></i>
                 <input type="range" name="volume" min="0" max="5" value="1" data-ng-model="switch.status" data-ng-change="changeLevel($event, switch.status, '{{ switch.status }}')" ng-disabled="switch.lock">
                 <i class="icon ion-ios-sunny"></i>
+                <span class="status-text">{{ switch.status }}</span>
             </ion-item>
 
 
