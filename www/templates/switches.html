@@ -4,19 +4,19 @@
       pulling-text="Pull to refresh..."
       on-refresh="doRefresh()">
     </ion-refresher>
-    <!--<ion-list>
-      <ion-item class="item-toggle item-icon-left item-extended"  >
-        <i class="icon ion-earth"></i>
-        <h2>{{ switch.title }}</h2>
-        <label class="toggle toggle-balanced">
-          <input type="checkbox" data-ng-checked="switch.status == '5'" data-ng-false="switch.status != '5'" >
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </ion-item>
-    </ion-list>-->
-    <ion-list>
+    <ion-fixed>
+      <!--<ion-list>
+        <ion-item class="item-toggle item-icon-left item-extended"  >
+          <i class="icon ion-earth"></i>
+          <h2>{{ switch.title }}</h2>
+          <label class="toggle toggle-balanced">
+            <input type="checkbox" data-ng-checked="switch.status == '5'" data-ng-false="switch.status != '5'" >
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </ion-item>
+      </ion-list>-->
       <label class="item item-input item-select">
         <div class="input-label">
           Filter by status
@@ -24,13 +24,15 @@
         <select ng-model="filter" ng-options="each.value as each.displayName for each in filters">
         </select>
       </label>
-      <!-- <ion-scroll direction="y" overflow-scroll="false"> -->
-      <ion-item class="item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches | FilterByStatus:filter">
+    </ion-fixed>
+    <ion-scroll direction="y" overflow-scroll="hidden" style="height: calc(100vh - 85px);">
+    <ion-list>
+      <ion-item class="item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches | FilterByStatus:filter;">
         <a href="#/app/switches/{{ switch.sid }}">
           <i ng-if="switch.type === '1'" class="icon ion-lightbulb"></i>
           <i ng-if="switch.type === '2'" class="icon ion-nuclear"></i>
           <i ng-if="switch.type === '3'" class="icon ion-outlet"></i>
-          <h2>{{ switch.title }}</h2>
+          <h2>{{ switch.title }} + {{ $index }}</h2>
           <p ng-if="switch.addtInfo.block">
             {{ switch.addtInfo.block.label }}
           </p>
@@ -42,7 +44,11 @@
           </div>
         </label>
       </ion-item>
-      <!-- </ion-scroll> -->
+      <li class="item item-icon-left empty-list" ng-if="notifyEmpty() === true">
+        <i class="ion ion-information-circled"></i>
+        No Switches Found!
+      </li>
     </ion-list>
+    </ion-scroll>
   </ion-content>
 </ion-view>

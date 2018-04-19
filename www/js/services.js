@@ -258,7 +258,7 @@ angular.module('starter.services', [])
     }
 })
 
-.factory("USER", function (SERVER, SESSION, $q) {
+.factory("USER", function (SERVER, SESSION, $q, $rootScope) {
     var details = {
         _id: 0,
         name: "",
@@ -281,6 +281,9 @@ angular.module('starter.services', [])
             details.username = res.data.username;
             details.accessLevel = res.data.accessLevel;
             details.deactivated = res.data.deactivated;
+            if (details.deactivated) {
+                $rootScope.$broadcast('doLogout');
+            }
             console.log(" > Getting user details..", details);
             defered.resolve();
         }, function (err) {

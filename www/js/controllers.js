@@ -129,6 +129,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
         //   }, CONFIG.timeout.delay);
         // }
 
+        // if (err.data.forceRefresh) {
+        //   $rootScope.$broadcast('doRefresh');
+        // }
+
       }
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -378,6 +382,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
         //   }, CONFIG.timeout.delay);
         // }
 
+        // if (err.data.forceRefresh) {
+        //   $rootScope.$broadcast('doRefresh');
+        // }
+
       }
       $ionicLoading.hide();
       $scope.loginDetails.userPin = "";
@@ -570,6 +578,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -640,6 +652,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -720,6 +736,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
               $rootScope.$broadcast('doLogout');
             }, CONFIG.timeout.delay);
           }
+
+          if (err.data.forceRefresh) {
+            $rootScope.$broadcast('doRefresh');
+          }
   
         }
 
@@ -745,6 +765,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -824,6 +848,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       sw.status = (status == '5') ? '0' : '5';
@@ -899,6 +927,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -979,6 +1011,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       sw.status = (status == '5') ? '0' : '5';
@@ -989,6 +1025,24 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
         template: errorMsg
       });
     });
+  };
+
+  $scope.notifyEmpty = function () {
+    if ($scope.switches.length() == 0) {
+      return true;
+    }
+
+    var flag = true;
+    if ($scope.filter === "inactive") {
+      $scope.blocks.forEach(function (val) {
+        if (val.status == '0') {
+          flag = false;
+        }
+      });
+    }
+
+    return flag;
+    
   };
 
 })
@@ -1044,6 +1098,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -1118,6 +1176,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       sw.status = (status == '5') ? '0' : '5';
@@ -1181,6 +1243,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -1248,6 +1314,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       console.log(' > Error', err);
@@ -1309,6 +1379,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -1396,6 +1470,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }
@@ -1548,6 +1626,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
                 $rootScope.$broadcast('doLogout');
               }, CONFIG.timeout.delay);
             }
+
+            if (err.data.forceRefresh) {
+              $rootScope.$broadcast('doRefresh');
+            }
     
           }
   
@@ -1669,6 +1751,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       $scope.changePinDetails = {};
@@ -1738,6 +1824,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       $scope.user.accessLevel = parseInt(oldVal);
@@ -1801,6 +1891,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           }, CONFIG.timeout.delay);
         }
 
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
+        }
+
       }
 
       evt.target.checked = evt.target.checked ? false : true;
@@ -1816,7 +1910,7 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
   function updateCurrentUserDetails() {
     var userId = parseInt($stateParams.userId);
     if (userId === SESSION.getUserId()) {
-      USER.init();
+      $rootScope.$broadcast('doRefresh');
     }
   }
 
@@ -1865,6 +1959,10 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters'])
           $timeout(function () {
             $rootScope.$broadcast('doLogout');
           }, CONFIG.timeout.delay);
+        }
+
+        if (err.data.forceRefresh) {
+          $rootScope.$broadcast('doRefresh');
         }
 
       }

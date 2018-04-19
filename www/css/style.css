@@ -150,3 +150,12 @@
 .badge {
     line-height: 17px !important;
 }
+
+ion-scroll {
+    margin-top:1px !important;
+}
+
+.empty-list {
+    padding: 32px 16px !important;
+    text-align: center !important;
+}

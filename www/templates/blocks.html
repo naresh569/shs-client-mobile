@@ -5,6 +5,7 @@
       pulling-text="Pull to refresh..."
       on-refresh="doRefresh()">
     </ion-refresher>
+    <!-- <ion-scroll direction="y" overflow-scroll="auto" style="height: calc(100vh - 42px);"> -->
     <ion-list>
       <a class="item item-icon-left item-badge-right" ng-repeat="block in blocks track by $index" href="#/app/blocks/{{ block.bid }}"> <!--item-toggle-->
         <i class="icon ion-android-options"></i>
@@ -19,6 +20,11 @@
         </label>
         -->
       </a>
+      <li class="item item-icon-left empty-list" ng-if="blocks.length">
+        <i class="ion ion-information-circled"></i>
+        No Blocks Found!
+      </li>
     </ion-list>
+    <!-- </ion-scroll>     -->
   </ion-content>
 </ion-view>

@@ -5,6 +5,7 @@
       pulling-text="Pull to refresh..."
       on-refresh="doRefresh()">
     </ion-refresher>
+    <!-- <ion-scroll direction="y" overflow-scroll="auto" style="height: calc(100vh - 42px);"> -->
     <ion-list>
       <li class="item item-toggle item-icon-left item-extended" data-ng-repeat="switch in switches track by $index" ng-if="switch.type !== '3' || isUserAdmin">
         <a href="#/app/switches/{{ switch.sid }}">
@@ -21,7 +22,12 @@
           </div>
         </label>
       </li>
+      <li class="item item-icon-left empty-list" ng-if="switches.length">
+        <i class="ion ion-information-circled"></i>
+        No Switches Found!
+      </li>
     </ion-list>
+    <!-- </ion-scroll> -->
   </ion-content>  
 </ion-view>
 
